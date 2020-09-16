@@ -1,0 +1,17 @@
+#!/bin/bash
+#PBS -N tagsFromFastq
+#PBS -l select=1:ncpus=1:mem=10gb,walltime=24:00:00
+#PBS -o ./logs/tagsFromFastq.out
+#PBS -e ./logs/tagsFromFastq.err
+#PBS -q tillers
+
+cd $PBS_O_WORKDIR
+
+export PATH=/home/jboatw2/tassel-5-standalone:$PATH
+
+WORK_DIR="/panicle/lucas/projects/NAM_05-27-2020"
+
+#  Get Tags from Fastq
+run_pipeline.pl -Xms5G -Xmx10G -fork1 -TagExportToFastqPlugin -db ${WORK_DIR}/data/tassel_db/NAM.db \
+  -o ${WORK_DIR}/data/tags/tagsForAlign.fa.gz -c 1 -endPlugin -runfork1
+

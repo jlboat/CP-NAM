@@ -1,0 +1,24 @@
+#!/bin/bash
+#PBS -N SnpQualityProfiler
+#PBS -l select=1:ncpus=1:mem=10gb,walltime=24:00:00
+#PBS -o ./logs/SnpQualityProfiler.out
+#PBS -e ./logs/SnpQualityProfiler.err
+#PBS -q tillers 
+
+cd $PBS_O_WORKDIR
+
+export PATH=/home/jboatw2/tassel-5-standalone:$PATH
+
+WORK_DIR="/panicle/lucas/projects/NAM_05-27-2020"
+
+DATABASE="${WORK_DIR}/data/tassel_db/NAM.db"
+OUTPUT_DIR="${WORK_DIR}/data/variants"
+
+if [ ! -e ${OUTPUT_DIR} ]
+then
+    mkdir -p ${OUTPUT_DIR}
+fi
+
+run_pipeline.pl -fork1 -SNPQualityProfilerPlugin \
+-db ${DATABASE} \
+-statFile "${OUTPUT_DIR}/outputStats.txt" -deleteOldData true -endPlugin -runfork1

@@ -1,0 +1,13 @@
+#!/bin/bash
+#PBS -N pca
+#PBS -l select=1:ncpus=1:mem=16gb,walltime=48:00:00
+#PBS -o pca.out
+#PBS -e pca.err
+#PBS -q tillers
+
+cd $PBS_O_WORKDIR
+
+module add anaconda3
+source activate assoc
+
+Rscript pca.R Tx430_NAM.merged.ref_fixed.vcf.gz

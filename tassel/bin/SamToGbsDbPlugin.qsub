@@ -1,0 +1,25 @@
+#!/bin/bash
+#PBS -N SamToDb
+#PBS -l select=1:ncpus=1:mem=10gb,walltime=24:00:00
+#PBS -o ./logs/SamToDb.out
+#PBS -e ./logs/SamToDb.err
+#PBS -q tillers
+
+cd $PBS_O_WORKDIR
+
+export PATH=/home/jboatw2/tassel-5-standalone:$PATH
+
+WORK_DIR="/panicle/lucas/projects/NAM_05-27-2020"
+
+DATABASE="${WORK_DIR}/data/tassel_db/NAM.db"
+OUTPUT_DIR="${WORK_DIR}/data/alignments"
+
+if [ ! -e ${OUTPUT_DIR} ]
+then
+    mkdir -p ${OUTPUT_DIR}
+fi
+
+run_pipeline.pl -fork1 -SAMToGBSdbPlugin \
+-i ${OUTPUT_DIR}/tagsForAlign.sam \
+-db ${DATABASE} \
+-aProp 0.0 -aLen 0 -endPlugin -runfork1

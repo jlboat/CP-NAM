@@ -1,0 +1,21 @@
+#!/bin/bash
+#PBS -N GbsToTags
+#PBS -l select=1:ncpus=11:mem=100gb,walltime=24:00:00
+#PBS -q tillers
+#PBS -o ./logs/GbsToTags.out
+#PBS -e ./logs/GbsToTags.err
+
+cd $PBS_O_WORKDIR
+
+export PATH=/home/jboatw2/tassel-5-standalone:$PATH
+
+WORK_DIR="/panicle/lucas/projects/NAM_05-27-2020"
+
+# Double digest of Pst1 and MspI 
+run_pipeline.pl -Xms50G -Xmx100G -fork1 -GBSSeqToTagDBPlugin -e PstI-MspI \
+    -i ${WORK_DIR}/data/fastq \
+    -db ${WORK_DIR}/data/tassel_db/NAM.db \
+    -k ${WORK_DIR}/doc/MasterKey.txt \
+    -endPlugin -runfork1 
+
+# -kmerLength 80 -minKmerL 40 -mnQS 20 -mxKmerNum 100000000 -endPlugin -runfork1

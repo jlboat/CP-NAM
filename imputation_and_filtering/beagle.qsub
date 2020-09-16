@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+#PBS -N beagle
+#PBS -l select=1:ncpus=16:mem=56gb,walltime=160:00:00
+#PBS -q tillers
+
+BASE_DIR="/scratch2/jboatw2/NAM_GWAS/GEMMA_ALL"
+
+cd ${BASE_DIR}
+
+java -jar -Xmx52g ~/beagle.18May20.d20.jar gt=NAM.vcf out=NAM.imputed window=20 nthreads=16

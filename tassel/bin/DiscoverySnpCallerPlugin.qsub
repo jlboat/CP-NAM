@@ -1,0 +1,16 @@
+#!/bin/bash
+#PBS -N discoverySnpCaller
+#PBS -l select=1:ncpus=1:mem=10gb,walltime=24:00:00
+#PBS -o ./logs/discoverySnpCaller.out
+#PBS -e ./logs/discoverySnpCaller.err
+#PBS -q tillers
+
+cd $PBS_O_WORKDIR
+
+export PATH=/home/jboatw2/tassel-5-standalone:$PATH
+
+WORK_DIR="/panicle/lucas/projects/NAM_05-27-2020"
+
+run_pipeline.pl -fork1 -DiscoverySNPCallerPluginV2 \
+-db ${WORK_DIR}/data/tassel_db/NAM.db \
+-sC "Chr01" -eC "Chr10" -mnLCov 0.1 -mnMAF 0.01 -deleteOldData true -endPlugin -runfork1

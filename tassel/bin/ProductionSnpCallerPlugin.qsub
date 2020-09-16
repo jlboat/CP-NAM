@@ -1,0 +1,24 @@
+#!/bin/bash
+#PBS -N SnpCaller
+#PBS -l select=1:ncpus=6:mem=32gb,walltime=24:00:00
+#PBS -o ./logs/SnpCaller.out
+#PBS -e ./logs/SnpCaller.err
+#PBS -q tillers
+
+cd $PBS_O_WORKDIR
+
+export PATH=/home/jboatw2/tassel-5-standalone:$PATH
+
+WORK_DIR="/panicle/lucas/projects/NAM_05-27-2020"
+DATABASE="${WORK_DIR}/data/tassel_db/NAM.db"
+ENZYMES='PstI-MspI'
+FASTQ_DIR="${WORK_DIR}/data/fastq"
+KEY_FILE="${WORK_DIR}/doc/MasterKey.txt"
+OUTPUT_DIR="${WORK_DIR}/data/variants"
+
+run_pipeline.pl -Xms15G -Xmx30G -fork1 -ProductionSNPCallerPluginV2 \
+-db ${DATABASE} \
+-e ${ENZYMES} -i ${FASTQ_DIR} \
+-k ${KEY_FILE} \
+-kmerLength 64 \
+-o ${OUTPUT_DIR}/NAM.vcf -endPlugin -runfork1

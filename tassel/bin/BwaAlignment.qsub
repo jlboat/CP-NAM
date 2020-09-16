@@ -1,0 +1,22 @@
+#!/bin/bash
+#PBS -N bwa_alignment
+#PBS -l select=1:ncpus=4:mem=20gb,walltime=24:00:00
+#PBS -o ./logs/bwa_alignment.out
+#PBS -e ./logs/bwa_alignment.err
+#PBS -q tillers
+
+cd $PBS_O_WORKDIR
+
+WORK_DIR="/panicle/lucas/projects/NAM_05-27-2020"
+
+REFERENCE="/zfs/tillers/Reference_Genomes/BTx623/v3.1.1/bwa/Sbicolor_454_v3.0.1.fa"
+OUTPUT_DIR="${WORK_DIR}/data/alignments"
+TAGS="${WORK_DIR}/data/tags/tagsForAlign.fa.gz"
+
+if [ ! -e ${OUTPUT_DIR} ]
+then
+    mkdir -p ${OUTPUT_DIR}
+fi
+
+singularity run -B /panicle,/zfs ~/singularity_containers/bwa.simg aln -t 4 ${REFERENCE} ${TAGS} > ${OUTPUT_DIR}/tagsForAlign.sai
+singularity run -B /panicle,/zfs ~/singularity_containers/bwa.simg samse ${REFERENCE} ${OUTPUT_DIR}/tagsForAlign.sai ${TAGS} > ${OUTPUT_DIR}/tagsForAlign.sam
