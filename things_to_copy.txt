@@ -1,1 +1,0 @@
-cp ../../NAM_02-24-2020/separate_calls/data/variants/imputed/missing_filter/QTL_mapping/*bash ./

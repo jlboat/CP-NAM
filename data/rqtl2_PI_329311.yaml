@@ -1,0 +1,14 @@
+crosstype: riself
+geno: PI_329311.chr.rqtl.noH.csv
+pheno: PI_329311.phenotypes.csv
+gmap: gmap.csv
+pmap: pmap.csv
+alleles:
+- A
+- B
+genotypes:
+  A: 1
+  B: 2
+na.strings:
+- "-"
+- NA

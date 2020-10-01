@@ -1,0 +1,14 @@
+crosstype: riself
+geno: Leoti.chr.rqtl.noH.csv
+pheno: Leoti.phenotypes.csv
+gmap: gmap.csv
+pmap: pmap.csv
+alleles:
+- A
+- B
+genotypes:
+  A: 1
+  B: 2
+na.strings:
+- "-"
+- NA
