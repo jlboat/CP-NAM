@@ -1,7 +1,7 @@
 # CP-NAM
 Scripts used to process the Sorghum Carbon-Partitioning NAM
 
-##Basic analysis steps:
+## Basic analysis steps:
 
 ### data - pericarp and testa phenotypes in CSV format
 ### tassel - scripts used to generate variant calls
